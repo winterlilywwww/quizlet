@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Selection</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="/">Home</a></li>
+                <li class="nav-item"><a href="/about">About</a></li>
+                <li class="nav-item"><a href="/quiz">Quiz</a></li>
+                <li class="nav-item"><a href="/result">Result</a></li>
+            </ul>
+        </nav>
+        <br> </br>
+
+        <form action="/api" method="post" class="container">
+
+
+
+            <h1 class="glitch-text" data-text="Select Quiz Option"> Select Quiz Option</h1>
+
+            <!-- Difficulty Hover Selection -->
+            <div class="option-container">
+                <h2>Select Difficulty:</h2>
+                <div class="option difficulty" id="difficulty">
+                    <span data-value="easy">Easy</span>
+                    <span data-value="medium">Medium</span>
+                    <span data-value="hard">Hard</span>
+                </div>
+            </div>
+
+            <!-- Start Button -->
+            <button type="submit" class="start-btn">Start Quiz</button>
+
+        </form>
+
+        <script>
+            // Variables to hold the user's choices
+            let selectedDifficulty = 'easy';
+            let selectedType = 'boolean';
+
+            // Update selected option on hover for difficulty
+            document.querySelectorAll('.difficulty span').forEach(option => {
+                option.addEventListener('mouseover', function () {
+                    highlightSelection('difficulty', this.getAttribute('data-value'));
+                });
+                option.addEventListener('click', function () {
+                    selectedDifficulty = this.getAttribute('data-value');
+                    applyBox('difficulty', selectedDifficulty);
+                });
+            });
+
+            // Update selected option on hover for quiz type
+            document.querySelectorAll('.type span').forEach(option => {
+                option.addEventListener('mouseover', function () {
+                    highlightSelection('type', this.getAttribute('data-value'));
+                });
+                option.addEventListener('click', function () {
+                    selectedType = this.getAttribute('data-value');
+                    applyBox('type', selectedType);
+                });
+            });
+
+            // Highlight selected option
+            function highlightSelection(optionType, selectedValue) {
+                document.querySelectorAll(`.${optionType} span`).forEach(span => {
+                    span.classList.toggle('highlight', span.getAttribute('data-value') === selectedValue);
+                });
+            }
+
+            // Apply box to selected option
+            function applyBox(optionType, selectedValue) {
+                document.querySelectorAll(`.${optionType} span`).forEach(span => {
+                    span.classList.remove('selected');
+                    if (span.getAttribute('data-value') === selectedValue) {
+                        span.classList.add('selected');
+                    }
+                });
+            }
+
+            // Start quiz button functionality
+            // document.getElementById('start-btn').addEventListener('click', function () {
+            //     localStorage.setItem('quizDifficulty', selectedDifficulty);
+            //     localStorage.setItem('quizType', selectedType);
+
+            //     window.location.href = '/start';
+            // });
+        </script>
+</body>
+
+</html>
+
+<style>
+    /* General styling */
+    body {
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url(/images/bg.png);
+        color: #00ffff;
+        margin: 0;
+    }
+
+    .container {
+        text-align: center;
+        max-width: 400px;
+    }
+
+
+    /* Navigation */
+    nav {
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 15px 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .nav-links {
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-item {
+        margin: 0 20px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.2em;
+        color: #00ffff;
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+        transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    .nav-links a:hover {
+        color: #ff00ff;
+        text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+    }
+
+
+    /* Each Navigation Item */
+    .nav-item {
+        padding: 10px 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid #00ffff;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+
+    .nav-item:hover {
+        background-color: rgba(255, 0, 255, 0.1);
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+    }
+    .container {
+    width: 80%;
+    max-width: 1000px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+    /* Navigation Links */
+    .nav-links a {
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+        /* Clean modern font for nav */
+        font-size: 1.5em;
+        color: #00ffff;
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+        transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    .nav-links a:hover {
+        color: #ff00ff;
+        text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+    }
+
+    header h1 {
+        font-size: 3em;
+        color: #fff;
+        position: relative;
+        margin-bottom: 50px;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Option Container */
+    .option-container {
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 1.2em;
+        color: #ff00ff;
+        text-shadow: 0 0 8px rgba(255, 0, 255, 0.8);
+    }
+
+    /* Options */
+    .option {
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+        border: 1px solid #00ffff;
+        border-radius: 5px;
+    }
+
+    .option span {
+        cursor: pointer;
+        font-size: 1.2em;
+        color: #fff;
+        padding: 5px 15px;
+        transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+    }
+
+    .option span:hover {
+        color: #ff00ff;
+        transform: scale(1.1);
+        text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+    }
+
+    .highlight {
+        color: #36a2eb;
+        text-shadow: 0 0 8px rgba(54, 162, 235, 0.8);
+    }
+
+    /* Selected Option Box */
+    .selected {
+        border: 2px solid #36a2eb;
+        background-color: rgba(54, 162, 235, 0.3);
+        border-radius: 5px;
+    }
+
+    /* Start Button */
+    #start-btn {
+        padding: 10px 20px;
+        font-size: 1.2em;
+        background-color: #36a2eb;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+
+    #start-btn:hover {
+        background-color: #40ff1e;
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px rgba(131, 253, 0, 0.5);
+    }
+
+
+    /* Glitchy Text for Heading */
+    .glitch-text {
+        font-family: 'VT323', monospace;
+        font-size: 3em;
+        position: relative;
+        color: #fff;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+        clip: rect(0, 900px, 0, 0);
+    }
+
+    .glitch-text::before {
+        left: 2px;
+        text-shadow: -2px 0 cyan;
+        animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+
+    .glitch-text::after {
+        left: -2px;
+        text-shadow: -2px 0 lime;
+        animation: glitch-anim-2 1.5s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim-1 {
+        0% {
+            clip: rect(44px, 9999px, 56px, 0);
+            transform: skew(0.3deg);
+        }
+
+        20% {
+            clip: rect(65px, 9999px, 25px, 0);
+            transform: skew(0.6deg);
+        }
+
+        40% {
+            clip: rect(16px, 9999px, 90px, 0);
+            transform: skew(0.1deg);
+        }
+
+        60% {
+            clip: rect(42px, 9999px, 12px, 0);
+            transform: skew(0.2deg);
+        }
+
+        80% {
+            clip: rect(10px, 9999px, 65px, 0);
+            transform: skew(0.4deg);
+        }
+
+        100% {
+            clip: rect(90px, 9999px, )
+        }
+    }
+</style>

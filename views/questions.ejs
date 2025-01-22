@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <main class="quiz" id="quiz-section">
+      <form id="quiz-form" action="/quiz/submit" method="post" autocomplete="off">
+        <h1>GOODLUCK</h1>
+        <div class="quiz-cont">
+          <% if (questions.length > 0) { %>
+            <% questions.forEach((question, qIndex) => { %>
+              <div class="quiz-q ques">
+                <div class="text">
+                  <p><%= question.question %></p>
+                  <small>Question</small>
+                  <div class="choices">
+                    <% question.answers.forEach((answer, aIndex) => { %>
+                      <label class="answer-label">
+                        <input type="radio" name="question-<%= qIndex %>" value="<%= answer.isCorrect %>" onclick="selectAnswer(this)" />
+                        <%= answer.text %>
+                      </label>
+                      
+                    <% }); %>
+                  </div>
+                  <small>Choices</small>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+          <% } else { %>
+            <p>No questions available.</p>
+          <% } %>
+
+          <div class="foot">
+            <button type="button" onclick="showScore()">You Have Done It!</button>
+            <div class="coin-slot"></div>
+          </div>
+          
+          <!-- Score display -->
+          <div class="score" id="quiz-score" style="display: none">
+            <h1>CONGRATULATIONS!</h1>
+            <div class="body">
+              <p>You Did Your Best</p>
+              <p id="score-result">Your Score: 0/0</p>
+            </div>
+            <div class="foot">
+              <a href="/quiz" target="_self">New Question?</a>
+              <button onclick="minimize()" id="minimize">Minimize</button>
+            </div>
+          </div>
+          <div class="overlay" id="overlay"></div>
+        </div>
+      </form>
+    </main>
+
+    <script>
+      function showScore() {
+        const form = document.getElementById("quiz-form");
+        const formData = new FormData(form);
+        let score = 0;
+
+        const totalQuestions = document.querySelectorAll(".ques").length;
+
+        // Calculate score based on correct answers
+        for (let [key, value] of formData.entries()) {
+          if (value === "true") {
+            score++;
+          }
+        }
+
+        // Display the score
+        document.getElementById("quiz-score").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("score-result").innerText = `Your Score: ${score}/${totalQuestions}`;
+
+        // Store the score in a hidden input to submit automatically
+        const hiddenScoreInput = document.createElement("input");
+        hiddenScoreInput.type = "hidden";
+        hiddenScoreInput.name = "score";
+        hiddenScoreInput.value = score;
+        form.appendChild(hiddenScoreInput);
+
+        // Optionally, you can delay the submission (but it's not mandatory)
+        setTimeout(function() {
+          form.submit(); // Submit the form automatically after 2 seconds
+        }, 2000); // Delay before submitting (you can adjust this as needed)
+      }
+
+      function minimize() {
+        document.getElementById("quiz-section").style.display = "block";
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("quiz-score").style.display = "none";
+        document.querySelectorAll(".correct-answer").forEach((element) => {
+          element.style.background = "#6eacda";
+          element.style.color = "#03346e";
+          element.style.border = "thick inset #03346e ";
+        });
+        document.getElementById("foot").style.padding = "2rem";
+
+        document.querySelectorAll("input[type='radio']").forEach((radio) => {
+          radio.disabled = true;
+        });
+      }
+
+      function selectAnswer(element) {
+        const parentDiv = element.closest(".choices");
+        const labels = parentDiv.querySelectorAll(".answer-label");
+        labels.forEach((label) => {
+          label.classList.remove("selected");
+        });
+
+        element.closest(".answer-label").classList.add("selected");
+      }
+      
+      
+    </script>
+  </body>
+</html>
+
+<style> 
+  /* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-image: url(/images/bg.png);
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0;
+}
+
+/* Quiz Container */
+.quiz {
+  background-color: rgba(255, 255, 255, 0.15); /* Transparent white background */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Question Section */
+.quiz-cont {
+  margin-bottom: 20px;
+}
+
+/* Question Styling */
+.quiz-q {
+  margin-bottom: 15px;
+}
+
+.quiz-q .text {
+  margin-bottom: 10px;
+}
+
+.quiz-q .text p {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  margin-bottom: 5px;
+}
+
+.quiz-q small {
+  font-size: 0.8rem;
+  color: #b0b0b0;
+}
+
+.choices {
+  margin-top: 10px;
+}
+
+.answer-label {
+  display: block;
+  padding: 12px;
+  background-color: #333;
+  border: 1px solid #444;
+  border-radius: 6px;
+  margin: 8px 0;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.answer-label:hover {
+  background-color: #555;
+  transform: scale(1.05);
+}
+
+.correct-answer {
+  background-color: #2ecc71;
+  border: 1px solid #27ae60;
+}
+
+.selected {
+  background-color: #3498db !important;
+  color: #fff;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+/* Score Section */
+.score {
+  text-align: center;
+  display: none;
+}
+
+.score h1 {
+  font-size: 2rem;
+  color: #36a2eb;
+  font-weight: 600;
+}
+
+.score .body {
+  margin: 20px 0;
+}
+
+.score #score-result {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.score .foot a {
+  display: inline-block;
+  padding: 12px 25px;
+  margin-right: 15px;
+  background-color: #36a2eb;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.score .foot a:hover {
+  background-color: #1e90ff;
+}
+
+.score .foot button {
+  padding: 12px 25px;
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.score .foot button:hover {
+  background-color: #ddd;
+}
+
+/* Main Button */
+button {
+  padding: 12px 20px;
+  background-color: #36a2eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #1e90ff;
+  transform: scale(1.05);
+}
+
+/* Foot Styling */
+.foot {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.coin-slot {
+  margin: 20px 0;
+}
+
+/* Overlay Styling */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+/* Minimize Button */
+#minimize {
+  margin-top: 20px;
+  background-color: #ccc;
+  color: #333;
+}
+
+#minimize:hover {
+  background-color: #bbb;
+}
+
+</style>

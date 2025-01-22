@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Futuristic Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="/">Home</a></li>
+                <li class="nav-item"><a href="/about">About Us</a></li>
+                <li class="nav-item"><a href="/quiz">Quiz</a></li>
+                <li class="nav-item"><a href="/result">Result</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="about-section">
+            <h1 class="glitch-text" data-text="About Us">About Us</h1>
+            <p class="about-description">
+               On behalf of developing this website. These are developers who work for this.   </p>
+
+            <div class="team">
+                <!-- ID Card 1 -->
+                <div class="id-card">
+                    <img src="/public/images/JAY..JPG" alt="Test Image">
+                    <h2>Gerrelle E. Jarina
+                    <p class="title">Contribution</p>
+                    <h3>Mainly the base HTML and CSS. She also work for the connection of API to the quiz</h3>
+                </div>
+
+                <!-- ID Card 2 -->
+                <div class="id-card">
+                    <img src="/public/images/LEX.jpg" alt="Test Image">
+                    <h2>Alexha Delmundo</h2>
+                    <p class="title">Contribution</p>
+                    <p>Responsible to make the code run into the localhost. As well as connecting the quiz to  last page which is the result.</p>
+                </div>
+
+            
+        </section>
+    </div>
+</body>
+</html>
+
+<style>
+    /* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url(/images/bg.png);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+/* Navigation */
+nav {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
+    color: #00ffff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ff00ff;
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+}
+
+
+/* Each Navigation Item */
+.nav-item {
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00ffff;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 0, 255, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+/* Navigation Links */
+.nav-links a {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif; /* Clean modern font for nav */
+    font-size: 1.5em;
+    color: #00ffff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ff00ff;
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+}
+
+
+/* Container */
+.container {
+    width: 80%;
+    max-width: 1000px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* About Section */
+.about-section {
+    margin-top: 20px;
+}
+
+.about-section h1 {
+    font-size: 3em;
+    color: #fff;
+    position: relative;
+    margin-bottom: 40px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.about-description {
+    font-size: 1.2em;
+    margin-bottom: 50px;
+}
+
+/* Team Section (ID Cards) */
+.team {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.id-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+    width: 220px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.id-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+}
+
+.team-photo {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.id-card h2 {
+    font-size: 1.5em;
+    color: #00ffff;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 1.2em;
+    color: #ff00ff;
+    margin-bottom: 15px;
+}
+
+.id-card p {
+    font-size: 1em;
+    color: #ddd;
+}
+
+/* Glitchy Text for About Us Heading */
+.glitch-text {
+    font-family: 'VT323', monospace;
+    font-size: 3em;
+    position: relative;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.glitch-text::before, .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+}
+
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 cyan;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 lime;
+    animation: glitch-anim-2 1.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(44px, 9999px, 56px, 0); transform: skew(0.3deg); }
+    20% { clip: rect(65px, 9999px, 25px, 0); transform: skew(0.6deg); }
+    40% { clip: rect(16px, 9999px, 90px, 0); transform: skew(0.1deg); }
+    60% { clip: rect(42px, 9999px, 12px, 0); transform: skew(0.2deg); }
+    80% { clip: rect(10px, 9999px, 65px, 0); transform: skew(0.4deg); }
+    100% { clip: rect(90px, 9999px,)}
+}
+
+</style>
